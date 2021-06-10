@@ -5,7 +5,6 @@
 #ifndef CLASSSCHEDULER_SCHEDULER_H
 #define CLASSSCHEDULER_SCHEDULER_H
 
-#include <list>
 #include <map>
 #include <vector>
 
@@ -17,12 +16,12 @@ class Scheduler {
 public:
     Scheduler();
 
-    void schedule(std::list<Student>& s);
+    void schedule(std::vector<Student*>& s);
 
     double getAccuracy() const;
 
 private:
-    std::list<Student>* students;
+    std::vector<Student*> students;
     std::pair<size_t, size_t> accuracy;
     std::map<size_t, Timeslot> classSchedule;
     std::vector<Timeslot> timeslots;

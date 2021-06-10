@@ -9,7 +9,9 @@
 
 class SchedulerInterface {
 public:
-    double schedule(std::list<Student>& s);
+    SchedulerInterface() = default;
+
+    double schedule(std::vector<Student*>& s);
 private:
     Scheduler scheduletron;
 };

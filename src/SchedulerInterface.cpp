@@ -4,7 +4,7 @@
 
 #include "SchedulerInterface.h"
 
-double SchedulerInterface::schedule(std::list<Student>& s) {
+double SchedulerInterface::schedule(std::vector<Student*>& s) {
     scheduletron.schedule(s);
     return scheduletron.getAccuracy();
 }

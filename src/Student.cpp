@@ -12,22 +12,22 @@ size_t Student::getID() const {
     return studentID;
 }
 
-std::set<Section> Student::getPreferences() const {
+std::set<Section*> Student::getPreferences() const {
     return preferences;
 }
 
-std::set<Section> Student::getSchedule() const {
+std::set<Section*> Student::getSchedule() const {
     return enrolled;
 }
 
-void Student::setPreference(Section s) {
-    preferences.insert(s);
+void Student::setPreference(Section& s) {
+    preferences.insert(&s);
 }
 
-void Student::setPreferences(std::set<Section> s) {
+void Student::setPreferences(std::set<Section*>& s) {
     if(s.size() + preferences.size() > 6)
         preferences.swap(s);
     else
-        for(Section i : s)
+        for(Section *i : s)
             preferences.insert(i);
 }
