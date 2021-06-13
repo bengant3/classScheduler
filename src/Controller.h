@@ -6,7 +6,6 @@
 #define CLASSSCHEDULER_CONTROLLER_H
 
 #include "Section.h"
-#include "Student.h"
 #include "Directory.h"
 #include "SchedulerInterface.h"
 #include <vector>
@@ -15,6 +14,8 @@
 
 class Controller {
 public:
+    Controller();
+
     void setUp(std::vector<Student> students, std::vector<Section> sections);
 
     void runScheduler();

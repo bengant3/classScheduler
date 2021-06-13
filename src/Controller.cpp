@@ -4,6 +4,11 @@
 
 #include "Controller.h"
 
+Controller::Controller() {
+    courseCatalog = new Directory<Section>;
+    studentList = new Directory<Student>;
+}
+
 void Controller::setUp(std::vector<Student> students, std::vector<Section> sections) {
     courseCatalog->populate(sections);
     studentList->populate(students);
@@ -17,7 +22,7 @@ void Controller::runScheduler() {
     char resp;
     std::cin >> resp;
     if(resp == 1) {
-        for(Student s : *studentList) {
+        for(Student const &s : *studentList) {
             std::cout << s.getName() << ": ";
             for(Section* const sec : s.getSchedule()) {
                 std::cout << sec->shortName();
@@ -26,7 +31,7 @@ void Controller::runScheduler() {
             std::cout << std::endl;
         }
     } else if (resp == 2) {
-        for(Section s : *courseCatalog) {
+        for(Section const &s : *courseCatalog) {
             std::cout << s.shortName() << ": ";
                 for(Student* const stu : s.getRoster()) {
                     std::cout << stu->getName();

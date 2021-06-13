@@ -11,6 +11,8 @@
 template <typename T>
 class Directory {
 public:
+    Directory() = default;
+
     T& getByID(int id);
 
     void addMember(const T & sec);

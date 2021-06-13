@@ -6,6 +6,8 @@
 #include <stdexcept>
 
 
+Section::Section(std::string n, size_t id, size_t size) : name(n), classID(id), classSize(size) {}
+
 std::string Section::shortName() const {
     return name.substr(0, name.find(':'));
 }
@@ -21,7 +23,7 @@ size_t Section::size() const {
     return classSize;
 }
 
-std::set<Student*> Section::getRoster() {
+std::set<Student*> Section::getRoster() const {
     return roster;
 }
 

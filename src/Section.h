@@ -13,12 +13,14 @@ class Student;
 
 class Section {
 public:
+    Section() = default;
+    Section(std::string n, size_t id, size_t size);
 
     std::string shortName() const;
     std::string longName() const;
     size_t getID() const;
     size_t size() const;
-    std::set<Student*> getRoster();
+    std::set<Student*> getRoster() const;
 
     bool isFull() const;
 
