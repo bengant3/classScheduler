@@ -8,6 +8,8 @@
 #include <vector>
 #include <map>
 
+template <typename T> class DirectoryIterator;
+
 template <typename T>
 class Directory {
 public:
@@ -19,15 +21,17 @@ public:
 
     void populate(std::vector<T>& list);
 
-    std::vector<T*>& asVector();
+    std::vector<T*>& asVector(std::vector<T*>& toReturn);
 
-    T* begin();
+    DirectoryIterator<T> begin();
 
-    T* end();
+    DirectoryIterator<T> end();
 
 private:
-    std::map<int, T> data;
+    std::map<const int, T> data;
 };
 
+#include "Directory.cpp"
+#include "DirectoryIterator.h"
 
 #endif //CLASSSCHEDULER_DIRECTORY_H

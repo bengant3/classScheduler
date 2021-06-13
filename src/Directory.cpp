@@ -2,8 +2,6 @@
 // Created by Ben on 6/10/2021.
 //
 
-#include "Directory.h"
-
 template <typename T>
 T& Directory<T>::getByID(int id) {
     return data[id];
@@ -22,20 +20,20 @@ void Directory<T>::populate(std::vector<T>& list) {
 }
 
 template <typename T>
-std::vector<T*>& Directory<T>::asVector() {
-    std::vector<T> ret;
-    for(std::pair<int,T>& item : data) {
-        ret.emplace(&item.second);
+std::vector<T*>& Directory<T>::asVector(std::vector<T*>& toReturn) {
+    //potentially clear toReturn and/or throw exception if it isn/t empty
+    for(std::pair<const int,T>& item : data) {
+        toReturn.emplace_back(&item.second);
     }
-    return ret;
+    return toReturn;
 }
 
 template <typename T>
-T* Directory<T>::begin() {
-    return data.begin();
+DirectoryIterator<T> Directory<T>::begin() {
+    return data.get();
 }
 
 template <typename T>
-T* Directory<T>::end() {
-    return data.end();
+DirectoryIterator<T> Directory<T>::end() {
+    return data.get(data.size());
 }
