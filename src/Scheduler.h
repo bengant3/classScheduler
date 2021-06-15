@@ -10,7 +10,6 @@
 
 class Student;
 
-enum Timeslot {MWF9, MWF10, MWF11, MWF12, MWF1, MWF2, MWF3, MW4, TH930, TH11, TH1, TH230, TH4};
 
 class Scheduler {
 public:
@@ -21,11 +20,14 @@ public:
     double getAccuracy() const;
 
 private:
-    std::vector<Student*> students;
+    //std::vector<Student*> students;
     std::pair<size_t, size_t> accuracy;
     std::map<size_t, Timeslot> classSchedule;
     std::vector<Timeslot> timeslots;
+
+    bool checkSchedForTimeslot(std::vector<Section*> sched, Timeslot ts);
 };
 
+#include "Scheduler.cpp"
 
 #endif //CLASSSCHEDULER_SCHEDULER_H

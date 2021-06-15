@@ -2,11 +2,9 @@
 // Created by Ben on 5/18/2021.
 //
 
-#include "Section.h"
 #include <stdexcept>
 
-
-Section::Section(std::string n, size_t id, size_t size) : name(n), classID(id), classSize(size) {}
+Section::Section(std::string n, size_t id, size_t size) : name(n), classID(id), classSize(size), time(unscheduled) {}
 
 std::string Section::shortName() const {
     return name.substr(0, name.find(':'));
@@ -27,15 +25,28 @@ std::set<Student*> Section::getRoster() const {
     return roster;
 }
 
+bool Section::isScheduled() const {
+    return time!=unscheduled;
+}
+
 bool Section::isFull() const {
     return (roster.size() == classSize);
 }
 
+Timeslot Section::getTime() const {
+    return time;
+}
+
+void Section::scheduleAt(Timeslot ts) {
+    time = ts;
+}
+
 void Section::addStudent(Student& s) {
-    if(!isFull())
+    if(!isFull()) {
         roster.insert(&s);
-    else
+    } else {
         throw std::out_of_range("Class is full");
+    }
 }
 
 void Section::removeStudent(Student& s) {

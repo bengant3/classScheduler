@@ -9,7 +9,7 @@
  */
 template <typename T> bool DirectoryIterator<T>::operator==(const DirectoryIterator<T>& rhs) const
 {
-    return mPtr == rhs.mPtr;
+    return ptr == rhs.ptr;
 }
 
 /**
@@ -19,7 +19,7 @@ template <typename T> bool DirectoryIterator<T>::operator==(const DirectoryItera
  */
 template <typename T> bool DirectoryIterator<T>::operator!=(const DirectoryIterator<T>& rhs) const
 {
-    return mPtr != rhs.mPtr;
+    return ptr != rhs.ptr;
 }
 
 /**
@@ -28,7 +28,7 @@ template <typename T> bool DirectoryIterator<T>::operator!=(const DirectoryItera
  */
 template <typename T> T& DirectoryIterator<T>::operator*()
 {
-    return *mPtr;
+    return ptr->second;
 }
 
 /**
@@ -37,7 +37,7 @@ template <typename T> T& DirectoryIterator<T>::operator*()
  */
 template <typename T> const T& DirectoryIterator<T>::operator*() const
 {
-    return *mPtr;
+    return ptr->second;
 }
 
 /**
@@ -46,7 +46,7 @@ template <typename T> const T& DirectoryIterator<T>::operator*() const
  */
 template <typename T> T* DirectoryIterator<T>::operator->()
 {
-    return mPtr;
+    return ptr;
 }
 
 /**
@@ -55,7 +55,7 @@ template <typename T> T* DirectoryIterator<T>::operator->()
  */
 template <typename T> const T* DirectoryIterator<T>::operator->() const
 {
-    return mPtr;
+    return ptr;
 }
 
 /**
@@ -64,7 +64,7 @@ template <typename T> const T* DirectoryIterator<T>::operator->() const
  */
 template <typename T> DirectoryIterator<T>& DirectoryIterator<T>::operator++()
 {
-    ++mPtr;
+    ++ptr;
     return *this;
 }
 
@@ -74,7 +74,7 @@ template <typename T> DirectoryIterator<T>& DirectoryIterator<T>::operator++()
  */
 template <typename T> DirectoryIterator<T> DirectoryIterator<T>::operator++(int32_t)
 {
-    mPtr++;
+    ptr++;
     return *this;
 }
 
@@ -84,7 +84,7 @@ template <typename T> DirectoryIterator<T> DirectoryIterator<T>::operator++(int3
  */
 template <typename T> DirectoryIterator<T>& DirectoryIterator<T>::operator--()
 {
-    --mPtr;
+    --ptr;
     return *this;
 }
 
@@ -94,7 +94,7 @@ template <typename T> DirectoryIterator<T>& DirectoryIterator<T>::operator--()
  */
 template <typename T> DirectoryIterator<T> DirectoryIterator<T>::operator--(int32_t)
 {
-    mPtr--;
+    ptr--;
     return *this;
 }
 
@@ -116,12 +116,11 @@ template <typename T> T& DirectoryIterator<T>::operator[](int32_t index)
  */
 template <typename T> const T& DirectoryIterator<T>::operator[](int32_t index) const
 {
-    return *(mPtr + index);
+    return *(ptr + index);
 }
 
 template <typename T>
-DirectoryIterator<T>::DirectoryIterator(T* ptr)
-        : mPtr(ptr)
+DirectoryIterator<T>::DirectoryIterator(typename std::map<int,T>::iterator p) : ptr(p)
 {
 }
 
@@ -135,7 +134,7 @@ DirectoryIterator<T>::DirectoryIterator(T* ptr)
 template <typename T>
 DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 {
-    DirectoryIterator<T> ret(iter.mPtr + offset);
+    DirectoryIterator<T> ret(iter.ptr + offset);
     return ret;
 }
 
@@ -147,7 +146,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 //template <typename T>
 //bool DirectoryConstIterator<T>::operator==(const DirectoryConstIterator<T>& rhs) const
 //{
-//    return *mPtr == rhs.*mPtr;
+//    return *ptr == rhs.*ptr;
 //}
 //
 ///**
@@ -158,7 +157,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 //template <typename T>
 //bool DirectoryConstIterator<T>::operator!=(const DirectoryConstIterator<T>& rhs) const
 //{
-//    return *mPtr != rhs.*mPtr;
+//    return *ptr != rhs.*ptr;
 //}
 //
 ///**
@@ -167,7 +166,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 // */
 //template <typename T> const T& DirectoryConstIterator<T>::operator*() const
 //{
-//    return *mPtr;
+//    return *ptr;
 //}
 //
 ///**
@@ -176,7 +175,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 // */
 //template <typename T> const T* DirectoryConstIterator<T>::operator->() const
 //{
-//    return mPtr;
+//    return ptr;
 //}
 //
 ///**
@@ -185,7 +184,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 // */
 //template <typename T> DirectoryConstIterator<T>& DirectoryConstIterator<T>::operator++()
 //{
-//    return ++mPtr;
+//    return ++ptr;
 //}
 //
 ///**
@@ -194,7 +193,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 // */
 //template <typename T> DirectoryConstIterator<T> DirectoryConstIterator<T>::operator++(int32_t)
 //{
-//    return mPtr++;
+//    return ptr++;
 //}
 //
 ///**
@@ -203,7 +202,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 // */
 //template <typename T> DirectoryConstIterator<T>& DirectoryConstIterator<T>::operator--()
 //{
-//    return --mPtr;
+//    return --ptr;
 //}
 //
 ///**
@@ -212,7 +211,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 // */
 //template <typename T> DirectoryConstIterator<T> DirectoryConstIterator<T>::operator--(int32_t)
 //{
-//    return mPtr--;
+//    return ptr--;
 //}
 //
 ///**
@@ -223,7 +222,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 //template <typename T>
 //DirectoryConstIterator<T> DirectoryConstIterator<T>::operator+(int32_t offset) const
 //{
-//    return mPtr + offset;
+//    return ptr + offset;
 //}
 //
 ///**
@@ -234,7 +233,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 //template <typename T>
 //DirectoryConstIterator<T> DirectoryConstIterator<T>::operator-(int32_t offset) const
 //{
-//    return mPtr - offset;
+//    return ptr - offset;
 //}
 //
 ///**
@@ -245,7 +244,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 //template <typename T>
 //int DirectoryConstIterator<T>::operator-(const DirectoryConstIterator<T>& rhs) const
 //{
-//    return (mPtr - rhs.mPtr);
+//    return (ptr - rhs.ptr);
 //}
 //
 ///**
@@ -256,7 +255,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 //template <typename T>
 //DirectoryConstIterator<T>& DirectoryConstIterator<T>::operator+=(const int32_t offset)
 //{
-//    return mPtr += offset;
+//    return ptr += offset;
 //}
 //
 ///**
@@ -267,7 +266,7 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 //template <typename T>
 //DirectoryConstIterator<T>& DirectoryConstIterator<T>::operator-=(const int32_t offset)
 //{
-//    return mPtr -= offset;
+//    return ptr -= offset;
 //}
 //
 ///**
@@ -277,12 +276,12 @@ DirectoryIterator<T> operator+(int32_t offset, const DirectoryIterator<T>& iter)
 // */
 //template <typename T> const T& DirectoryConstIterator<T>::operator[](const int32_t index) const
 //{
-//    return *(mPtr + index);
+//    return *(ptr + index);
 //}
 //
 //template <typename T>
 //DirectoryConstIterator<T> operator+(const int32_t offset, const DirectoryConstIterator<T>& iter)
 //{
-//    return (iter.mPtr + offset);
+//    return (iter.ptr + offset);
 //}
 //*/

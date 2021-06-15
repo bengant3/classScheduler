@@ -16,5 +16,6 @@ private:
     Scheduler scheduletron;
 };
 
+#include "SchedulerInterface.cpp"
 
 #endif //CLASSSCHEDULER_SCHEDULERINTERFACE_H

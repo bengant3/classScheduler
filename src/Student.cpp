@@ -2,8 +2,6 @@
 // Created by Ben on 5/18/2021.
 //
 
-#include "Student.h"
-
 Student::Student(std::string n, size_t id) : name(n), studentID(id) {}
 
 Student::Student(std::string n, size_t id, std::vector<Section*>& s) : name(n), studentID(id), preferences(s) {}

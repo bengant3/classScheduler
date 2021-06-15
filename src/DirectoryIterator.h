@@ -5,9 +5,16 @@
 #ifndef CLASSSCHEDULER_DIRECTORYITERATOR_H
 #define CLASSSCHEDULER_DIRECTORYITERATOR_H
 
+// an alternative implementation is to have a list of ids/keys and iterating over that,
+// accessing elements in map key-by-key
+
 template <typename T>
 class DirectoryIterator {
 public:
+
+    /**only constuctor is private and requires T* param*/
+    DirectoryIterator() = delete;
+
     /**
      * Tests for iterator equality.
      * @param rhs The iterator to compare against.
@@ -90,14 +97,17 @@ private:
      * Creates an iterator pointing to the same element as the provided pointer.
      * @param ptr
      */
-    explicit DirectoryIterator(T* ptr);
+    //explicit DirectoryIterator(T* ptr);
+
+    explicit DirectoryIterator(typename std::map<int,T>::iterator p);
 
     friend class Directory<T>;
 
     /**
      * Pointer to the actual element.
      */
-    T* mPtr;
+
+    typename std::map<int,T>::iterator ptr;
 };
 
 #include "DirectoryIterator.cpp"

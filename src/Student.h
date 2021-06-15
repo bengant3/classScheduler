@@ -30,5 +30,6 @@ private:
     std::vector<Section*> enrolled;
 };
 
+#include "Student.cpp"
 
 #endif //CLASSSCHEDULER_STUDENT_H

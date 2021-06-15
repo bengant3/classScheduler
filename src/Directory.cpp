@@ -30,10 +30,10 @@ std::vector<T*>& Directory<T>::asVector(std::vector<T*>& toReturn) {
 
 template <typename T>
 DirectoryIterator<T> Directory<T>::begin() {
-    return data.get();
+    return DirectoryIterator<T>(data.begin());
 }
 
 template <typename T>
 DirectoryIterator<T> Directory<T>::end() {
-    return data.get(data.size());
+    return DirectoryIterator<T>(data.end());
 }
