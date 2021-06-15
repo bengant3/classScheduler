@@ -77,20 +77,20 @@ public:
      */
     DirectoryIterator<T> operator--(int);
 
-    /**
-     * Subscript operator.
-     * Must call to const operator[].  Do not reimplement!!!
-     * @param index offset from current position.
-     * @return the T & to the value at the index offset from *this.
-     */
-    T& operator[](int index);
-
-    /**
-     * Subscript operator.
-     * @param index offset from current position.
-     * @return the const T & to the value at the index offset from *this.
-     */
-    const T& operator[](int index) const;
+//    /**
+//     * Subscript operator.
+//     * Must call to const operator[].  Do not reimplement!!!
+//     * @param index offset from current position.
+//     * @return the T & to the value at the index offset from *this.
+//     */
+//    T& operator[](int index);
+//
+//    /**
+//     * Subscript operator.
+//     * @param index offset from current position.
+//     * @return the const T & to the value at the index offset from *this.
+//     */
+//    const T& operator[](int index) const;
 
 private:
     /**

@@ -35,5 +35,7 @@ DirectoryIterator<T> Directory<T>::begin() {
 
 template <typename T>
 DirectoryIterator<T> Directory<T>::end() {
-    return DirectoryIterator<T>(data.end());
+    auto ret = DirectoryIterator<T>(data.end());
+
+    return ret;
 }

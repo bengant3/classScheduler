@@ -16,12 +16,14 @@ public:
     Student() = default;
     Student(std::string n, size_t id);
     Student(std::string n, size_t id, std::vector<Section*>& s);
+    bool operator!=(Student& other) const;
     std::string getName() const;
     size_t getID() const;
     std::vector<Section*> getPreferences() const;
     std::vector<Section*> getSchedule() const;
     void setPreference(Section& s);
     void setPreferences(std::vector<Section*>& s);
+    void setSchedule(Section& s);
 
 private:
     std::string name;

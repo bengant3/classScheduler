@@ -18,6 +18,8 @@ public:
     Section() = default;
     Section(std::string n, size_t id, size_t size);
 
+    bool operator!=(Section& other) const;
+
     std::string shortName() const;
     std::string longName() const;
     size_t getID() const;

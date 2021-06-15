@@ -9,7 +9,7 @@
  */
 template <typename T> bool DirectoryIterator<T>::operator==(const DirectoryIterator<T>& rhs) const
 {
-    return ptr == rhs.ptr;
+    return ptr->first == rhs.ptr->first && ptr.second == rhs.ptr->second;
 }
 
 /**
@@ -19,7 +19,7 @@ template <typename T> bool DirectoryIterator<T>::operator==(const DirectoryItera
  */
 template <typename T> bool DirectoryIterator<T>::operator!=(const DirectoryIterator<T>& rhs) const
 {
-    return ptr != rhs.ptr;
+    return ptr->first != rhs.ptr->first || ptr->second != rhs.ptr->second;
 }
 
 /**
@@ -46,7 +46,7 @@ template <typename T> const T& DirectoryIterator<T>::operator*() const
  */
 template <typename T> T* DirectoryIterator<T>::operator->()
 {
-    return ptr;
+    return &(ptr->second);
 }
 
 /**
@@ -55,7 +55,7 @@ template <typename T> T* DirectoryIterator<T>::operator->()
  */
 template <typename T> const T* DirectoryIterator<T>::operator->() const
 {
-    return ptr;
+    return &(ptr->second);
 }
 
 /**
@@ -98,30 +98,33 @@ template <typename T> DirectoryIterator<T> DirectoryIterator<T>::operator--(int3
     return *this;
 }
 
-/**
- * Subscript operator.
- * Must call to const operator[].  Do not reimplement!!!
- * @param index offset from current position.
- * @return the T & to the value at the index offset from *this.
- */
-template <typename T> T& DirectoryIterator<T>::operator[](int32_t index)
-{
-    return const_cast<T&>(static_cast<const DirectoryIterator<T>*>(this)->operator[](index));
-}
-
-/**
- * Subscript operator.
- * @param index offset from current position.
- * @return the const T & to the value at the index offset from *this.
- */
-template <typename T> const T& DirectoryIterator<T>::operator[](int32_t index) const
-{
-    return *(ptr + index);
-}
+///**
+// * Subscript operator.
+// * Must call to const operator[].  Do not reimplement!!!
+// * @param index offset from current position.
+// * @return the T & to the value at the index offset from *this.
+// */
+//template <typename T> T& DirectoryIterator<T>::operator[](int32_t index)
+//{
+//    return const_cast<T&>(static_cast<const DirectoryIterator<T>*>(this)->operator[](index));
+//}
+//
+///**
+// * Subscript operator.
+// * @param index offset from current position.
+// * @return the const T & to the value at the index offset from *this.
+// */
+//template <typename T> const T& DirectoryIterator<T>::operator[](int32_t index) const
+//{
+//    return *(ptr + index);
+//}
 
 template <typename T>
-DirectoryIterator<T>::DirectoryIterator(typename std::map<int,T>::iterator p) : ptr(p)
+DirectoryIterator<T>::DirectoryIterator(typename std::map<int,T>::iterator p)
 {
+
+
+    ptr = p;
 }
 
 /**

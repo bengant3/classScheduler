@@ -6,6 +6,11 @@
 
 Section::Section(std::string n, size_t id, size_t size) : name(n), classID(id), classSize(size), time(unscheduled) {}
 
+bool Section::operator!=(Section& other) const {
+    //note that operator!= doesn't check roster for equivalence
+    return (name != other.name || classID != other.classID || classSize != other.classSize || time != other.time);
+}
+
 std::string Section::shortName() const {
     return name.substr(0, name.find(':'));
 }
@@ -44,6 +49,7 @@ void Section::scheduleAt(Timeslot ts) {
 void Section::addStudent(Student& s) {
     if(!isFull()) {
         roster.insert(&s);
+        s.setSchedule(*this);
     } else {
         throw std::out_of_range("Class is full");
     }
