@@ -11,11 +11,11 @@
 
 class Student;
 
-enum Timeslot {unscheduled, MWF9, MWF10, MWF11, MWF12, MWF1, MWF2, MWF3, MW4, TH930, TH11, TH1, TH230, TH4};
+enum Timeslot {null, unscheduled, MWF9, MWF10, MWF11, MWF12, MWF1, MWF2, MWF3, MW4, TH930, TH11, TH1, TH230, TH4};
 
 class Section {
 public:
-    Section() = default;
+    Section();
     Section(std::string n, size_t id, size_t size);
 
     bool operator!=(Section& other) const;
@@ -42,6 +42,8 @@ private:
     size_t classSize;
     std::set<Student*> roster;
     Timeslot time;
+
+    bool isNull() const;
 };
 
 #include "Section.cpp"

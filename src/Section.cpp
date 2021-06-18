@@ -4,9 +4,13 @@
 
 #include <stdexcept>
 
+Section::Section() : time(null) {}
+
 Section::Section(std::string n, size_t id, size_t size) : name(n), classID(id), classSize(size), time(unscheduled) {}
 
 bool Section::operator!=(Section& other) const {
+    //if both are null, return false; if one is null, return true
+    if(isNull() || other.isNull()) return isNull() != other.isNull();
     //note that operator!= doesn't check roster for equivalence
     return (name != other.name || classID != other.classID || classSize != other.classSize || time != other.time);
 }
@@ -61,4 +65,8 @@ void Section::removeStudent(Student& s) {
 
 void Section::clear() {
     roster.clear();
+}
+
+bool Section::isNull() const {
+    return time==null;
 }

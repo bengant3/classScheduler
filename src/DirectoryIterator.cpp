@@ -9,7 +9,7 @@
  */
 template <typename T> bool DirectoryIterator<T>::operator==(const DirectoryIterator<T>& rhs) const
 {
-    return ptr->first == rhs.ptr->first && ptr.second == rhs.ptr->second;
+    return ptr == rhs.ptr;
 }
 
 /**
@@ -19,7 +19,7 @@ template <typename T> bool DirectoryIterator<T>::operator==(const DirectoryItera
  */
 template <typename T> bool DirectoryIterator<T>::operator!=(const DirectoryIterator<T>& rhs) const
 {
-    return ptr->first != rhs.ptr->first || ptr->second != rhs.ptr->second;
+    return ptr != rhs.ptr;
 }
 
 /**
