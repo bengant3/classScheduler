@@ -10,33 +10,6 @@ Scheduler::Scheduler() {
 }
 
 void Scheduler::schedule(std::vector<Student*>& students) {
-//    auto enroll = [&](Student* stu){
-//        std::vector<Section*> unscheduled;
-//        for(Section* sect : stu->getPreferences()) {
-//            ++accuracy.second;
-//            if(sect->isScheduled()) {
-//                if(!sect->isFull()) {
-//                    ++accuracy.first;
-//                    sect->addStudent(*stu); /**set student's class schedule???*/
-//                }
-//            } else {
-//                unscheduled.emplace_back(sect);
-//            }
-//        }
-//        for(Section* sect : unscheduled) {
-//            int tsIter = 0;
-//            while (tsIter < timeslots.size() && checkSchedForTimeslot(stu->getSchedule(), timeslots[tsIter]))
-//                ++tsIter;
-//            // if all time slots are full, class is not scheduled
-//            // realistically, this should never happen though, b/c a student would have to take like 15 classes.
-//            if(tsIter < timeslots.size()) {
-//                sect->scheduleAt(timeslots[tsIter]);
-//                ++accuracy.first;
-//                sect->addStudent(*stu);
-//            }
-//        }
-//    };
-
     for(Student* stu : students) {
         std::vector<Section*> unscheduled;
         for(Section* sect : stu->getPreferences()) {
@@ -50,7 +23,8 @@ void Scheduler::schedule(std::vector<Student*>& students) {
                 unscheduled.emplace_back(sect);
             }
         }
-        for(Section* sect : unscheduled) {
+        while (!unscheduled.empty()) {
+            Section* sect = unscheduled.back();
             int tsIter = 0;
             while (tsIter < timeslots.size() && checkSchedForTimeslot(stu->getSchedule(), timeslots[tsIter]))
                 ++tsIter;
@@ -61,6 +35,7 @@ void Scheduler::schedule(std::vector<Student*>& students) {
                 ++accuracy.first;
                 sect->addStudent(*stu);
             }
+            unscheduled.pop_back();
         }
     }
 

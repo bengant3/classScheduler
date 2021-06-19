@@ -32,16 +32,15 @@ void Controller::runScheduler() {
                 result += sec->shortName();
                 if(sec != *(--(s->getSchedule().end()))) result += ", ";
             }
-
-
             result += "\n";
         }
     } else if (resp == '2') {
-        for(Section &s : *courseCatalog) {
-            result += s.shortName() + ": ";
-                for(Student* const stu : s.getRoster()) {
+        for(auto s = courseCatalog->begin(); s != courseCatalog->end(); ++s) {
+            auto addr = &*s;
+            result += s->shortName() + ": "; /** update section.addStudent() */
+                for(Student* const stu : s->getRoster()) {
                     result += stu->getName();
-                    if(stu != *(s.getRoster().end()--)) result += ", ";
+                    if(stu != *(s->getRoster().end()--)) result += ", ";
                 }
             result += "\n";
         }

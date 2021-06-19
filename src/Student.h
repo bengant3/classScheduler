@@ -19,8 +19,8 @@ public:
     bool operator!=(Student& other) const;
     std::string getName() const;
     size_t getID() const;
-    std::vector<Section*> getPreferences() const;
-    std::vector<Section*> getSchedule() const;
+    std::vector<Section*>& getPreferences();
+    std::vector<Section*>& getSchedule();
     void setPreference(Section& s);
     void setPreferences(std::vector<Section*>& s);
     void setSchedule(Section& s);

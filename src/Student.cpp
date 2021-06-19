@@ -19,11 +19,11 @@ size_t Student::getID() const {
     return studentID;
 }
 
-std::vector<Section*> Student::getPreferences() const {
+std::vector<Section*>& Student::getPreferences() {
     return preferences;
 }
 
-std::vector<Section*> Student::getSchedule() const {
+std::vector<Section*>& Student::getSchedule() {
     return enrolled;
 }
 
