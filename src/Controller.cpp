@@ -16,7 +16,16 @@ void Controller::setUp(std::vector<Student> students, std::vector<Section> secti
 
 void Controller::runScheduler() {
     std::vector<Student*> newVector;
-    double accuracy = scheduler.schedule(studentList->asVector(newVector));
+    newVector = studentList->asVector(newVector);
+
+    auto addr = &*(courseCatalog->begin());
+    auto addr2 = &*(studentList->begin());
+
+
+    double accuracy = scheduler.schedule(newVector);
+
+
+
 
     std::cout << "Completed scheduling with a " << accuracy*100 << "% success rate.\n\n";
     std::cout << "See result?\n1. Yes, by student\n2. Yes, by class\n3. No\n";
