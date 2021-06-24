@@ -13,9 +13,9 @@ void Directory<T>::addMember(const T &sec) {
 }
 
 template <typename T>
-void Directory<T>::populate(std::vector<T>& list) {
-    for(const T& s : list) {
-        data[s.getID()] = s;
+void Directory<T>::populate(std::vector<T*>& list) {
+    for(const T* s : list) {
+        data[s->getID()] = *s;
     }
 }
 
@@ -30,12 +30,14 @@ std::vector<T*>& Directory<T>::asVector(std::vector<T*>& toReturn) {
 
 template <typename T>
 DirectoryIterator<T> Directory<T>::begin() {
-    return DirectoryIterator<T>(data.begin());
+    auto p = data.begin();
+    return DirectoryIterator<T>(p);
 }
 
 template <typename T>
 DirectoryIterator<T> Directory<T>::end() {
-    auto ret = DirectoryIterator<T>(data.end());
+    auto p = data.end();
+    auto ret = DirectoryIterator<T>(p);
 
     return ret;
 }

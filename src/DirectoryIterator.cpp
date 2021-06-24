@@ -120,10 +120,8 @@ template <typename T> DirectoryIterator<T> DirectoryIterator<T>::operator--(int3
 //}
 
 template <typename T>
-DirectoryIterator<T>::DirectoryIterator(typename std::map<int,T>::iterator p)
+DirectoryIterator<T>::DirectoryIterator(typename std::map<int,T>::iterator& p)
 {
-
-
     ptr = p;
 }
 

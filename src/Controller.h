@@ -16,10 +16,9 @@ class Controller {
 public:
     Controller();
 
-    void setUp(std::vector<Student> students, std::vector<Section> sections);
+    void setUp(std::vector<Student*>& students, std::vector<Section*>& sections);
 
     void runScheduler();
-
 private:
     Directory<Section>* courseCatalog;
     Directory<Student>* studentList;

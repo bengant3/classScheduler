@@ -19,7 +19,7 @@ public:
 
     void addMember(const T & sec);
 
-    void populate(std::vector<T>& list);
+    void populate(std::vector<T*>& list);
 
     std::vector<T*>& asVector(std::vector<T*>& toReturn);
 

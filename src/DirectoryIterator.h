@@ -15,66 +15,17 @@ public:
     /**only constuctor is private and requires T* param*/
     DirectoryIterator() = delete;
 
-    /**
-     * Tests for iterator equality.
-     * @param rhs The iterator to compare against.
-     * @return True if *this and rhs point to the same element.
-     */
     bool operator==(const DirectoryIterator<T>& rhs) const;
-
-    /**
-     * Tests for iterator inequality.
-     * @param rhs The iterator to compare against.
-     * @return False if *this and rhs point to the same element.
-     */
     bool operator!=(const DirectoryIterator<T>& rhs) const;
 
-    /**
-     * Dereference operator.
-     * @return A T & to the value pointed to by *this.
-     */
     T& operator*();
-
-    /**
-     * Dereference operator.
-     * @return A constant T & to the value pointed to by *this.
-     */
     const T& operator*() const;
-
-    /**
-     * Dereference operator.
-     * @return A pointer to the value pointed to by this.
-     */
     T* operator->();
-
-    /**
-     * Dereference operator.
-     * @return A pointer to the value pointed to by this.
-     */
     const T* operator->() const;
 
-    /**
-     * Preincrement operator.
-     * @return *this after the increment.
-     */
     DirectoryIterator<T>& operator++();
-
-    /**
-     * Postincrement operator.
-     * @return The iterator before the increment.
-     */
     DirectoryIterator<T> operator++(int);
-
-    /**
-     * Predecrement operator.
-     * @return *this after the decrement.
-     */
     DirectoryIterator<T>& operator--();
-
-    /**
-     * Postdecrement operator.
-     * @return The iterator before the decrement.
-     */
     DirectoryIterator<T> operator--(int);
 
 //    /**
@@ -99,14 +50,13 @@ private:
      */
     //explicit DirectoryIterator(T* ptr);
 
-    explicit DirectoryIterator(typename std::map<int,T>::iterator p);
+    explicit DirectoryIterator(typename std::map<int,T>::iterator& p);
 
     friend class Directory<T>;
 
     /**
      * Pointer to the actual element.
      */
-
     typename std::map<int,T>::iterator ptr;
 };
 
