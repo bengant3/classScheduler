@@ -6,6 +6,9 @@ Student::Student(std::string n, size_t id) : name(n), studentID(id) {}
 
 Student::Student(std::string n, size_t id, std::vector<Section*>& s) : name(n), studentID(id), preferences(s) {}
 
+Student::Student(Student&& s) : name(s.name), studentID(s.studentID),
+                                preferences(std::move(s.preferences)), enrolled(std::move(s.enrolled)) {}
+
 bool Student::operator!=(Student& other) const {
     //note that unequivalence only checks name and id.
     return (studentID != other.getID() || name != other.getName());

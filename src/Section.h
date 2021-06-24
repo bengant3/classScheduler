@@ -18,6 +18,12 @@ public:
     Section();
     Section(std::string n, size_t id, size_t size);
 
+    Section(const Section& s) = default;
+    Section& operator=(const Section& s) = default;
+
+    Section(Section&& s);
+    Section& operator=(Section&& s) = default;
+
     bool operator!=(Section& other) const;
 
     std::string shortName() const;

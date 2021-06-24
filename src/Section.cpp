@@ -8,6 +8,9 @@ Section::Section() : time(null) {}
 
 Section::Section(std::string n, size_t id, size_t size) : name(n), classID(id), classSize(size), time(unscheduled) {}
 
+Section::Section(Section&& s) : name(s.name), classID(s.classID), classSize(s.classSize),
+                                roster(std::move(s.roster)), time(s.time) {}
+
 bool Section::operator!=(Section& other) const {
     //if both are null, return false; if one is null, return true
     if(isNull() || other.isNull()) return isNull() != other.isNull();

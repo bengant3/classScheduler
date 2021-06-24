@@ -16,6 +16,13 @@ public:
     Student() = default;
     Student(std::string n, size_t id);
     Student(std::string n, size_t id, std::vector<Section*>& s);
+
+    Student(const Student& s) = default;
+    Student& operator=(const Student& s) = default;
+
+    Student(Student&& s);
+    Student& operator=(Student&& s) = default;
+
     bool operator!=(Student& other) const;
     std::string getName() const;
     size_t getID() const;
