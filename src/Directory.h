@@ -13,7 +13,10 @@ template <typename T> class DirectoryIterator;
 template <typename T>
 class Directory {
 public:
-    Directory() = default;
+    static Directory<T>* instance() {
+        if(inst == nullptr) inst = new Directory<T>();
+        return inst;
+    }
 
     T& getByID(int id);
 
@@ -28,6 +31,10 @@ public:
     DirectoryIterator<T> end();
 
 private:
+    Directory() = default;
+
+    static Directory<T> *inst;
+
     std::map<const int, T> data;
 };
 
