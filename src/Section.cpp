@@ -3,6 +3,7 @@
 //
 
 #include <stdexcept>
+#include "Directory.h"
 
 Section::Section() : time(null) {}
 
@@ -33,8 +34,12 @@ size_t Section::size() const {
     return classSize;
 }
 
-std::set<Student*> Section::getRoster() const {
-    return roster;
+std::vector<Student*> Section::getRoster() const {
+    std::vector<Student*> ret;
+    Directory<Student>* stuDirectory = Directory<Student>::instance();
+    for(int i : roster)
+        ret.push_back(&stuDirectory->getByID(i));
+    return ret;
 }
 
 bool Section::isScheduled() const {
@@ -53,17 +58,24 @@ void Section::scheduleAt(Timeslot ts) {
     time = ts;
 }
 
-void Section::addStudent(Student& s) {
+void Section::addStudent(int s) {
+    Directory<Student>* stuDirectory = Directory<Student>::instance();
     if(!isFull()) {
-        roster.insert(&s);
-        s.setSchedule(*this);
+        roster.push_back(s);
+        stuDirectory->getByID(s).setEnrolled(classID);
     } else {
         throw std::out_of_range("Class is full");
     }
 }
 
-void Section::removeStudent(Student& s) {
-    roster.erase(&s);
+void Section::removeStudent(int s) {
+    auto it = roster.begin();
+    while(it != roster.end()) {
+        if(*it == s) {
+            roster.erase(it);
+            break;
+        }
+    }
 }
 
 void Section::clear() {

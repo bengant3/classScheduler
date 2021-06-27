@@ -9,15 +9,17 @@ Scheduler::Scheduler() {
     timeslots = {MWF9, MWF10, MWF11, MWF12, MWF1, MWF2, MWF3, MW4, TH930, TH11, TH1, TH230, TH4};
 }
 
-void Scheduler::schedule(std::vector<Student*>& students) {
-    for(Student* stu : students) {
+void Scheduler::schedule(std::vector<int>& students) {
+    Directory<Student>* stuDirectory = Directory<Student>::instance();
+    for(int si : students) {
+        Student* stu = &stuDirectory->getByID(si);
         std::vector<Section*> unscheduled;
         for(Section* sect : stu->getPreferences()) {
             ++accuracy.second;
             if(sect->isScheduled()) {
                 if(!sect->isFull()) {
                     ++accuracy.first;
-                    sect->addStudent(*stu); /**set student's class schedule???*/
+                    sect->addStudent(stu->getID());
                 }
             } else {
                 unscheduled.emplace_back(sect);
@@ -26,14 +28,14 @@ void Scheduler::schedule(std::vector<Student*>& students) {
         while (!unscheduled.empty()) {
             Section* sect = unscheduled.back();
             int tsIter = 0;
-            while (tsIter < timeslots.size() && checkSchedForTimeslot(stu->getSchedule(), timeslots[tsIter]))
+            while (tsIter < timeslots.size() && checkSchedForTimeslot(stu->getEnrolled(), timeslots[tsIter]))
                 ++tsIter;
             // if all time slots are full, class is not scheduled
             // realistically, this should never happen though, b/c a student would have to take like 15 classes.
             if(tsIter < timeslots.size()) {
                 sect->scheduleAt(timeslots[tsIter]);
                 ++accuracy.first;
-                sect->addStudent(*stu);
+                sect->addStudent(stu->getID());
             }
             unscheduled.pop_back();
         }

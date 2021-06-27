@@ -5,8 +5,8 @@
 #include "Controller.h"
 
 Controller::Controller() {
-    courseCatalog = new Directory<Section>;
-    studentList = new Directory<Student>;
+    courseCatalog = Directory<Section>::instance();
+    studentList = Directory<Student>::instance();
 }
 
 void Controller::setUp(std::vector<Student*>& students, std::vector<Section*>& sections) {
@@ -15,8 +15,7 @@ void Controller::setUp(std::vector<Student*>& students, std::vector<Section*>& s
 }
 
 void Controller::runScheduler() {
-    std::vector<Student*> newVector;
-    newVector = studentList->asVector(newVector);
+    std::vector<int> newVector = studentList->asIntVector();
 
     double accuracy = scheduler.schedule(newVector);
 
@@ -30,19 +29,18 @@ void Controller::runScheduler() {
     if(resp == '1') {
         for(auto s = studentList->begin(); s != studentList->end(); ++s) {
             result += s->getName() + (s->getName().size() < 6 ? ": \t\t" : ": \t");
-            for(Section* const sec : s->getSchedule()) {
+            for(Section* const sec : s->getEnrolled()) {
                 result += sec->shortName();
-                if(sec != *(--(s->getSchedule().end()))) result += ", ";
+                if(sec != *(--(s->getEnrolled().end()))) result += ", ";
             }
             result += "\n";
         }
     } else if (resp == '2') {
         for(auto s = courseCatalog->begin(); s != courseCatalog->end(); ++s) {
-            auto addr = &*s;
-            result += s->shortName() + ": "; /** update section.addStudent() */
+            result += s->shortName() + ": \t";
                 for(Student* const stu : s->getRoster()) {
                     result += stu->getName();
-                    if(stu != *(s->getRoster().end()--)) result += ", ";
+                    if(stu != *(--(s->getRoster().end()))) result += ", ";
                 }
             result += "\n";
         }

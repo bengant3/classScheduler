@@ -15,12 +15,11 @@ class Scheduler {
 public:
     Scheduler();
 
-    void schedule(std::vector<Student*>& s);
+    void schedule(std::vector<int>& s);
 
     double getAccuracy() const;
 
 private:
-    //std::vector<Student*> students;
     std::pair<size_t, size_t> accuracy;
     std::map<size_t, Timeslot> classSchedule;
     std::vector<Timeslot> timeslots;

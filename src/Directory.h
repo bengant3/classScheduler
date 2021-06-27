@@ -24,7 +24,7 @@ public:
 
     void populate(std::vector<T*>& list);
 
-    std::vector<T*>& asVector(std::vector<T*>& toReturn);
+    std::vector<int> asIntVector();
 
     DirectoryIterator<T> begin();
 

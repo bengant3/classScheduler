@@ -11,7 +11,7 @@ class SchedulerInterface {
 public:
     SchedulerInterface() = default;
 
-    double schedule(std::vector<Student*>& s);
+    double schedule(std::vector<int>& s);
 private:
     Scheduler scheduletron;
 };
