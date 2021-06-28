@@ -29,14 +29,15 @@ void Directory<T>::populate(std::deque<T*>& list) {
 template <typename T>
 std::deque<int> Directory<T>::asIntDeque(int start) {
     std::deque<int> ret;
-//    std::deque<int> helper; //decided not to import deque class
-//    int i = 0;
-    for(std::pair<const int,T>& item : data)
-        ret.push_back(item.first);
-//    for(auto it = data.begin()+start; it != data.begin(); ++it)
-//        ret.push_back(it->first);
-//    for(auto it = data.begin(); it != data.begin()+start; ++it)
-//        ret.push_back(it->first);
+    std::deque<int> helper;
+    int i = 0;
+    for(std::pair<const int,T>& item : data) {
+        (i < start ? helper : ret).push_back(item.first);
+    }
+    while(!helper.empty()) {
+        ret.push_back(helper.front());
+        helper.pop_front();
+    }
     return ret;
 }
 
