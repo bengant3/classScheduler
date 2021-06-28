@@ -18,7 +18,7 @@ public:
 
     void setUp(std::deque<Student*>& students, std::deque<Section*>& sections);
 
-    void runScheduler();
+    double runScheduler(bool verbose = true, int start = 0);
 private:
     Directory<Section>* courseCatalog;
     Directory<Student>* studentList;
