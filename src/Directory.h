@@ -5,7 +5,7 @@
 #ifndef CLASSSCHEDULER_DIRECTORY_H
 #define CLASSSCHEDULER_DIRECTORY_H
 
-#include <vector>
+#include <deque>
 #include <map>
 
 template <typename T> class DirectoryIterator;
@@ -18,13 +18,15 @@ public:
         return inst;
     }
 
+    int size();
+
     T& getByID(int id);
 
     void addMember(const T & sec);
 
-    void populate(std::vector<T*>& list);
+    void populate(std::deque<T*>& list);
 
-    std::vector<int> asIntVector();
+    std::deque<int> asIntDeque(int start = 0);
 
     DirectoryIterator<T> begin();
 

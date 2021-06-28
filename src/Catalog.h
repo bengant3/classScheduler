@@ -6,7 +6,7 @@
 #define CLASSSCHEDULER_CATALOG_H
 
 #include <map>
-#include <vector>
+#include <deque>
 #include "Section.h"
 
 class Catalog {
@@ -15,7 +15,7 @@ public:
 
     void addMember(const Section & sec);
 
-    void populate(std::vector<Section>& list);
+    void populate(std::deque<Section>& list);
 
 private:
     std::map<int, Section> coursesList;

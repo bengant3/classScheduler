@@ -8,7 +8,7 @@
 #include "Section.h"
 #include "Directory.h"
 #include "SchedulerInterface.h"
-#include <vector>
+#include <deque>
 
 #include <iostream>
 
@@ -16,7 +16,7 @@ class Controller {
 public:
     Controller();
 
-    void setUp(std::vector<Student*>& students, std::vector<Section*>& sections);
+    void setUp(std::deque<Student*>& students, std::deque<Section*>& sections);
 
     void runScheduler();
 private:

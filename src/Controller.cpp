@@ -9,15 +9,25 @@ Controller::Controller() {
     studentList = Directory<Student>::instance();
 }
 
-void Controller::setUp(std::vector<Student*>& students, std::vector<Section*>& sections) {
+void Controller::setUp(std::deque<Student*>& students, std::deque<Section*>& sections) {
     courseCatalog->populate(sections);
     studentList->populate(students);
 }
 
 void Controller::runScheduler() {
-    std::vector<int> newVector = studentList->asIntVector();
+//    int numresp = 0;
+//    while(numresp < 1 || numresp > 10) {
+//        std::cout << "How many iterations? (1-10) ";
+//        std::cin >> numresp;
+//    }
 
-    double accuracy = scheduler.schedule(newVector);
+    std::deque<int> newDeque;
+    double accuracy = -1;
+
+    //for(int i = 0; i < numresp; ++i) {
+        newDeque = studentList->asIntDeque(/*studentList->size()*i/numresp*/);
+        accuracy = scheduler.schedule(newDeque);
+    //}
 
     std::cout << "Completed scheduling with a " << accuracy*100 << "% success rate.\n\n";
     std::cout << "See result?\n1. Yes, by student\n2. Yes, by class\n3. No\n";
@@ -28,7 +38,7 @@ void Controller::runScheduler() {
 
     if(resp == '1') {
         for(auto s = studentList->begin(); s != studentList->end(); ++s) {
-            result += s->getName() + (s->getName().size() < 6 ? ": \t\t" : ": \t");
+            result += s->getName() + (s->getName().size() < 14 ? ": \t\t" : ": \t");
             for(Section* const sec : s->getEnrolled()) {
                 result += sec->shortName();
                 if(sec != *(--(s->getEnrolled().end()))) result += ", ";

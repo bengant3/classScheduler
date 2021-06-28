@@ -9,11 +9,11 @@ Scheduler::Scheduler() {
     timeslots = {MWF9, MWF10, MWF11, MWF12, MWF1, MWF2, MWF3, MW4, TH930, TH11, TH1, TH230, TH4};
 }
 
-void Scheduler::schedule(std::vector<int>& students) {
+void Scheduler::schedule(std::deque<int>& students) {
     Directory<Student>* stuDirectory = Directory<Student>::instance();
     for(int si : students) {
         Student* stu = &stuDirectory->getByID(si);
-        std::vector<Section*> unscheduled;
+        std::deque<Section*> unscheduled;
         for(Section* sect : stu->getPreferences()) {
             ++accuracy.second;
             if(sect->isScheduled()) {
@@ -51,7 +51,7 @@ double Scheduler::getAccuracy() const {
     return accuracy.first == 0 ? 0 : (double)accuracy.first/(double)accuracy.second;
 }
 
-bool Scheduler::checkSchedForTimeslot(std::vector<Section*> sched, Timeslot ts) {
+bool Scheduler::checkSchedForTimeslot(std::deque<Section*> sched, Timeslot ts) {
     for(Section* s : sched) {
         if (s->isScheduled() && s->getTime() == ts) return true;
     }

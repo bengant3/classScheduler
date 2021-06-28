@@ -34,8 +34,8 @@ size_t Section::size() const {
     return classSize;
 }
 
-std::vector<Student*> Section::getRoster() const {
-    std::vector<Student*> ret;
+std::deque<Student*> Section::getRoster() const {
+    std::deque<Student*> ret;
     Directory<Student>* stuDirectory = Directory<Student>::instance();
     for(int i : roster)
         ret.push_back(&stuDirectory->getByID(i));

@@ -6,7 +6,7 @@
 #define CLASSSCHEDULER_SCHEDULER_H
 
 #include <map>
-#include <vector>
+#include <deque>
 
 class Student;
 
@@ -15,16 +15,16 @@ class Scheduler {
 public:
     Scheduler();
 
-    void schedule(std::vector<int>& s);
+    void schedule(std::deque<int>& s);
 
     double getAccuracy() const;
 
 private:
     std::pair<size_t, size_t> accuracy;
     std::map<size_t, Timeslot> classSchedule;
-    std::vector<Timeslot> timeslots;
+    std::deque<Timeslot> timeslots;
 
-    bool checkSchedForTimeslot(std::vector<Section*> sched, Timeslot ts);
+    bool checkSchedForTimeslot(std::deque<Section*> sched, Timeslot ts);
 };
 
 #include "Scheduler.cpp"
