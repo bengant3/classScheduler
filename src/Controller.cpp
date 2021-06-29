@@ -14,8 +14,16 @@ void Controller::setUp(std::deque<Student*>& students, std::deque<Section*>& sec
     studentList->populate(students);
 }
 
-double Controller::runScheduler(bool verbose, int start) {
+void Controller::resetDirectories() {
+    for(Section& sec : *courseCatalog) {
+        while(!sec.getRoster().empty()) {
+            Student* stu = sec.getRoster().back();
+            sec.removeStudent(stu->getID());
+        }
+    }
+}
 
+double Controller::runScheduler(bool verbose, int start) {
     std::deque<int> newDeque;
     double accuracy = -0.01;
 

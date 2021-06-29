@@ -30,9 +30,8 @@ template <typename T>
 std::deque<int> Directory<T>::asIntDeque(int start) {
     std::deque<int> ret;
     std::deque<int> helper;
-    int i = 0;
-    for(std::pair<const int,T>& item : data) {
-        (i < start ? helper : ret).push_back(item.first);
+    for(auto item : data) {
+        (item.first < start ? helper : ret).push_back(item.first);
     }
     while(!helper.empty()) {
         ret.push_back(helper.front());
