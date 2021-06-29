@@ -31,6 +31,7 @@ public:
     void setPreference(int s);
     void setPreferences(std::deque<int> s);
     void setEnrolled(int s);
+    void unenroll(int s);
 
 private:
     std::string name;

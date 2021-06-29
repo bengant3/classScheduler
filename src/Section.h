@@ -30,6 +30,7 @@ public:
     std::string longName() const;
     size_t getID() const;
     size_t size() const;
+    size_t maxCapacity() const;
     std::deque<Student*> getRoster() const;
 
     bool isScheduled() const;
@@ -46,6 +47,7 @@ private:
     std::string name;
     size_t classID;
     size_t classSize;
+    size_t maxSize;
     std::deque<int> roster;
     Timeslot time;
 

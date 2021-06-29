@@ -56,3 +56,12 @@ void Student::setPreferences(std::deque<int> s) {
 void Student::setEnrolled(int s) {
     enrolled.push_back(s);
 }
+
+void Student::unenroll(int s) {
+    for (auto i = enrolled.begin(); i != enrolled.end(); ++i) {
+        if (*i == s) {
+            enrolled.erase(i);
+            break;
+        }
+    }
+}

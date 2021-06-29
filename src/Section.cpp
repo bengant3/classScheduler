@@ -5,11 +5,12 @@
 #include <stdexcept>
 #include "Directory.h"
 
-Section::Section() : time(null) {}
+Section::Section() : time(null), maxSize(10) {}
 
-Section::Section(std::string n, size_t id, size_t size) : name(n), classID(id), classSize(size), time(unscheduled) {}
+Section::Section(std::string n, size_t id, size_t size) : name(n), classID(id), classSize(0), maxSize(size),
+                                                            time(unscheduled) {}
 
-Section::Section(Section&& s) : name(s.name), classID(s.classID), classSize(s.classSize),
+Section::Section(Section&& s) : name(s.name), classID(s.classID), classSize(s.classSize), maxSize(s.maxSize),
                                 roster(std::move(s.roster)), time(s.time) {}
 
 bool Section::operator!=(Section& other) const {
@@ -34,6 +35,10 @@ size_t Section::size() const {
     return classSize;
 }
 
+size_t Section::maxCapacity() const {
+    return maxSize;
+}
+
 std::deque<Student*> Section::getRoster() const {
     std::deque<Student*> ret;
     Directory<Student>* stuDirectory = Directory<Student>::instance();
@@ -47,7 +52,7 @@ bool Section::isScheduled() const {
 }
 
 bool Section::isFull() const {
-    return (roster.size() == classSize);
+    return (classSize == maxSize);
 }
 
 Timeslot Section::getTime() const {
@@ -62,6 +67,7 @@ void Section::addStudent(int s) {
     Directory<Student>* stuDirectory = Directory<Student>::instance();
     if(!isFull()) {
         roster.push_back(s);
+        ++classSize;
         stuDirectory->getByID(s).setEnrolled(classID);
     } else {
         throw std::out_of_range("Class is full");
@@ -69,12 +75,16 @@ void Section::addStudent(int s) {
 }
 
 void Section::removeStudent(int s) {
+    Directory<Student>* stuDirectory = Directory<Student>::instance();
     auto it = roster.begin();
     while(it != roster.end()) {
         if(*it == s) {
             roster.erase(it);
+            --classSize;
+            stuDirectory->getByID(s).unenroll(classID);
             break;
         }
+        ++it;
     }
 }
 
