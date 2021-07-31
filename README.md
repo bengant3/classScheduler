@@ -6,21 +6,28 @@ This application uses an algorithm to place the most students in the most classe
 
 ## Components
 
-### Controller Class
+#### Controller Class
 Controls the execution of the application. First, it populates 2 Directory instances using deques of Student and Section instances. Second, it calls upon the Scheduler algorithm sending the Directory of Students as a parameter, with an option for verbose feedback during the algorithm execution. Finally, it can reset the class schedules of Students and rosters of Sections if multiple iterations are intended to be executed.
 
-### Directory/DirectoryIterator Class
+#### Directory/DirectoryIterator Class
 A template, singleton class that encapsulates a map that links an integer key to a certain object of type T; in this application, there are two Directory instances, one holding type Section, one holding type Student. To access a certain Student or Section in this application, an object can call the singleton instance of that directory, and request a reference to an object based on its ID number. In essence, instead of using pointers to Students and Sections throughout the program, objects contain "references" via ID number and thus allows the Directory class to control all accesses to Student or Section objects, while also providing better memory safety.
 The DirectoryIterator class provides a useful way to iterator over a set of objects in the Directory class.
 
-### Scheduler Class
+#### Scheduler Class
 This class is the core of the application, and executes the actual scheduling algorithm. It takes a deque of Student ID numbers and attempts to enroll Students in their preferred classes. It also keeps track of successful enrollments and total enrollment attempts, allowing the Scheduler class to store algorithm accuracy.
 
-### Scheduler Interface Class
+#### Scheduler Interface Class
 This class simply wraps the Scheduler class, utilizing the adapter pattern, so that the interface used by the Controller class is consistent throughout development.
 
-### Section Class
+#### Section Class
 This class emulates a Section of a class offered by a university. It has a unique class ID number, and  stores a roster of students (that is filled by the Scheduler class). The Scheduler class also is responsible for scheduling the section, giving it one of a certain set of prespecified times. 
 
-### Student Class
+#### Student Class
 This class emulates a Student of a university. They have a unique student ID number and a list of preset class enrollment preferences. The Schduler class attempts to enroll the Student in as many of their preferred classes as possible, adding successfully enrolled classes to that student's class schedule.
+
+## Versions and Results
+ - Version 1.0.0: simple brute-force enrollment algorithm that goes down the list and schedules unscheduled classes, enrolls students in all open preferred classes, and ignores preferences that are full. No backtracking or schedule reworking of any kind.
+    - 50 students, 30 classes, 2 iterations: 97.2%
+    - 100 students, 60 classes, 5 iterations: 89.6%
+    - 200 students, 60 classes, 10 iterations: 74.0%
+ - Version 1.1.0: 

@@ -25,6 +25,10 @@ private:
     std::deque<Timeslot> timeslots;
 
     bool checkSchedForTimeslot(std::deque<Section*> sched, Timeslot ts);
+
+    bool helper(std::deque<int>::iterator curStudent, std::deque<Section*> prefs, int tsIter,
+                const std::deque<int>::iterator& end, Directory<Student>* stuDirectory);
+
 };
 
 #include "Scheduler.cpp"
